@@ -1,15 +1,17 @@
 import { Sequelize } from "sequelize";
 import {
-  DB_DEV_NAME,
-  DB_TEST_NAME,
+  DB_DATABASE,
+  DB_TEST_DATABASE,
   DB_PASSWORD,
   DB_USER,
   NODE_ENV,
+  DB_HOST,
 } from "../utils/config";
-const DB_NAME = NODE_ENV === "test" ? DB_TEST_NAME : DB_DEV_NAME;
 
-const db = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-  host: "localhost",
+const DB_NAME = NODE_ENV === "test" ? DB_TEST_DATABASE : DB_DATABASE;
+
+const db = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
+  host: DB_HOST,
   dialect: "mysql",
   define: {
     timestamps: false,

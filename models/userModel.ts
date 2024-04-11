@@ -38,7 +38,7 @@ export const UserModel = db.define(
     },
     role: {
       type: DataTypes.STRING,
-      defaultValue: "user",
+      defaultValue: 1,
     },
   },
   {
