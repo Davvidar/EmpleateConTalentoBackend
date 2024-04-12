@@ -35,10 +35,10 @@ export const registerController = async (
       user: userData,
     };
 
-    res.send({ sesiondata });
+    return res.status(201).json({ sesiondata });
   } catch (error) {
     console.log(error);
-    handleHttpError(res, "ERROR_REGISTER_USER");
+    return handleHttpError(res, "ERROR_REGISTER_USER");
   }
 };
 
@@ -51,7 +51,7 @@ export const loginController = async (
     const loginPassword = req.body.password;
     const user = await userModel.findOne({ where: { email: userEmail } });
     if (!user) {
-      handleHttpError(res, "USER_NOT_EXISTS", 404);
+      return handleHttpError(res, "USER_NOT_EXISTS", 404);
     }
     const userData: UserData = {
       id: user?.get("id") as number,
@@ -63,16 +63,16 @@ export const loginController = async (
     const check = await compare(loginPassword, hashPassword);
 
     if (!check) {
-      handleHttpError(res, "PASSWORD_INVALID", 401);
+      return handleHttpError(res, "PASSWORD_INVALID", 401);
     }
 
     const sesiondata: SesionData = {
       token: await tokenSign(user),
       user: userData,
     };
-    res.send({ sesiondata });
+    return res.status(200).json({ sesiondata });
   } catch (error) {
     console.log(error);
-    handleHttpError(res, "ERROR_LOGIN_USER");
+    return handleHttpError(res, "ERROR_LOGIN_USER");
   }
 };
