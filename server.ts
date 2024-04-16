@@ -15,6 +15,13 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/", userRouter);
 
+app.use("/api", resultsCardsRouter);
+app.use("/api", resultsQuizRouter);
+app.use("/api", resultsCvRouter);
+app.use("/api/", CardsRouter);
+
+
+
 try {
   db.authenticate();
   console.log("💫💫💫conected to database💫💫💫");

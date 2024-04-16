@@ -1,13 +1,15 @@
 import { Router } from "express";
-import db from "../database/db";
-import CardsController from "../controllers/CardsController";
+import {
+    getAllCardsController,
+    getCardsByIdController,
+} from "../controllers/CardsController";
 
 const CardsRouter = Router();
 
-
-CardsRouter.route("/").get(CardsController.getAllCards);
+CardsRouter.get("/Cards", getAllCardsController);
+CardsRouter.get("/Cards/:id", getCardsByIdController);
 /*CardsRouter.route("/").post(CardsController.addCard);
 CardsRouter.route("/:id").get(CardsController.getCardById);
 CardsRouter.route("/:id").delete(CardsController.deleteCard); */
 
-export default  CardsRouter
+export default CardsRouter

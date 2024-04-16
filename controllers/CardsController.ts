@@ -1,39 +1,53 @@
-import db from "../database/db";
-import { Request, Response } from "express";
 import CardsModel from "../models/CardsModel";
+import { handleHttpError } from "../utils/handleError";
+import { Request, Response } from "express";
+import { Cards } from "../interfaces/cardsInterface";
+import { Model } from "sequelize";
 
-const CardsController = {
+export const getAllCardsController = async (
+  req: Request,
+  res: Response
+): Promise<Response | void> => {
+  try {
+    const results: Model<Cards>[] = await CardsModel.findAll();
 
-    getAllCards: async (req: Request, res: Response) => {
-        try {
-            const cards = await CardsModel.getAllCards();
-            res.json(cards);
-        } catch (error) {
+    const cardsData: Cards[] = results.map((result) => ({
+      id: result.get("id") as number,
+      title: result.get("title") as string,
+      description: result.get("description") as string,
+      image: result.get("image") as string,
+    }));
 
-        }
-    },
-   /* addCard: async (req: Request, res: Response) => {
-        const { title, description, image} = req.body;
-        if (!title || !description || !image) {
-            res.status(400).json({ message: 'Faltan datos' });
-            return;
-        }
-        const result = await CardsModel.addCard(title, description, image);
-        res.send(result);
+    return res.status(200).json({ results: cardsData });
+  } catch (error) {
+    console.log(error);
+    return handleHttpError(res, "ERROR_GETTING_CARDS");
+  }
+};
 
-    }
-     getCardById: async (req: Request, res: Response) => {
-        try {
-            const title = req.params.title;
-            const card = await CardsModel.getCardById(id);
-            if (!Array.isArray(card) || card.length === 0) {
-                res.status(404).json({ message: "Card not found" });
-                return
-            }
-        } catch (error) {
-            console.log(error)
-        }
-    }  */
-}
-export default CardsController
+export const getCardsByIdController = async (
+  req: Request,
+  res: Response
+): Promise<Response | void> => {
+  try {
+    const cardId = req.params.id;
 
+    const results: Model<Cards>[] = await CardsModel.findAll({
+      where: {
+        Id: cardId,
+      },
+    });
+
+    const cardsData: Cards[] = results.map((result) => ({
+        id: result.get("id") as number,
+        title: result.get("title") as string,
+        description: result.get("description") as string,
+        image: result.get("image") as string,
+    }));
+
+    return res.status(200).json({ results: cardsData });
+  } catch (error) {
+    console.log(error);
+    return handleHttpError(res, "ERROR_GETTING_CARD_BY_ID");
+  }
+};
