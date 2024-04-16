@@ -16,6 +16,7 @@ const db = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   define: {
     timestamps: false,
   },
+
 });
 
 export default db;
