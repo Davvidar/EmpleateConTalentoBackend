@@ -2,6 +2,7 @@ import express from "express";
 import { PORT } from "./utils/config";
 import db from "./database/db";
 import cors from "cors";
+import CardsRouter from "./routes/CardsRouter";
 
 import userRouter from "./routes/userRouter";
 import resultsCardsRouter from "./routes/resultsCardsRouter";
@@ -13,9 +14,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/api/", userRouter);
-app.use("/api", resultsCardsRouter);
-app.use("/api", resultsQuizRouter);
-app.use("/api", resultsCvRouter);
 
 try {
   db.authenticate();
@@ -29,3 +27,5 @@ try {
 export const server = app.listen(PORT, () => {
   console.log(`🚀server up in http://localhost:${PORT}/`);
 });
+
+
