@@ -1,14 +1,21 @@
 import express from "express";
 import { PORT } from "./utils/config";
 import db from "./database/db";
-import userRouter from "./routes/userRouter";
 import cors from "cors";
+
+import userRouter from "./routes/userRouter";
+import resultsCardsRouter from "./routes/resultsCardsRouter";
+import resultsCvRouter from "./routes/resultsCvRouter";
+import resultsQuizRouter from "./routes/resultsQuizRouter";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use("/api/", userRouter);
+app.use("/api", resultsCardsRouter);
+app.use("/api", resultsQuizRouter);
+app.use("/api", resultsCvRouter);
 
 try {
   db.authenticate();

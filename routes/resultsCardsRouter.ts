@@ -5,10 +5,13 @@ import {
   getCardsResultsByUserIdController,
 } from "../controllers/resultsCardsController";
 
-const userRouter = Router();
+const resultsCardsRouter = Router();
 
-userRouter.post("/savecards", saveCardsResultsController);
-userRouter.get("/allcardsresults", getAllCardsResultsController);
-userRouter.get("/cardsresultsbyuser", getCardsResultsByUserIdController);
+resultsCardsRouter.post("/savecards", saveCardsResultsController);
+resultsCardsRouter.get("/allcardsresults", getAllCardsResultsController);
+resultsCardsRouter.get(
+  "/cardsresultsbyuser",
+  getCardsResultsByUserIdController
+);
 
-export default userRouter;
+export default resultsCardsRouter;

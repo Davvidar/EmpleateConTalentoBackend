@@ -5,11 +5,10 @@ import {
   getCvResultsByUserIdController,
 } from "../controllers/resultsCvController";
 
-const userRouter = Router();
+const resultsCvRouter = Router();
 
-userRouter.post("/savecv", saveCvResultsController);
-userRouter.get("/allcvresults", getAllCvResultsController);
-userRouter.get("/cvresultsbyuser", getCvResultsByUserIdController);
+resultsCvRouter.post("/savecv", saveCvResultsController);
+resultsCvRouter.get("/allcvresults", getAllCvResultsController);
+resultsCvRouter.get("/cvresultsbyuser", getCvResultsByUserIdController);
 
-export default userRouter;
-// cambiar endpoints!!
+export default resultsCvRouter;

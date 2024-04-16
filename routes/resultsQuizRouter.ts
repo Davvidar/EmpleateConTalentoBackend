@@ -5,10 +5,10 @@ import {
   getQuizResultsByUserIdController,
 } from "../controllers/resultsQuizController";
 
-const userRouter = Router();
+const resultsQuizRouter = Router();
 
-userRouter.post("/savequiz", saveQuizResultsController);
-userRouter.get("/allquizresults", getAllQuizResultsController);
-userRouter.get("/quizresultsbyuser", getQuizResultsByUserIdController);
+resultsQuizRouter.post("/savequiz", saveQuizResultsController);
+resultsQuizRouter.get("/allquizresults", getAllQuizResultsController);
+resultsQuizRouter.get("/quizresultsbyuser", getQuizResultsByUserIdController);
 
-export default userRouter;
+export default resultsQuizRouter;
