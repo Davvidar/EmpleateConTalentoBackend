@@ -6,6 +6,7 @@ import {
   DB_USER,
   NODE_ENV,
   DB_HOST,
+  PORT,
 } from "../utils/config";
 
 const DB_NAME = NODE_ENV === "test" ? DB_TEST_DATABASE : DB_DATABASE;
@@ -16,6 +17,7 @@ const db = new Sequelize(DB_DATABASE, DB_USER, DB_PASSWORD, {
   define: {
     timestamps: false,
   },
+  port: PORT,
 });
 
 export default db;
