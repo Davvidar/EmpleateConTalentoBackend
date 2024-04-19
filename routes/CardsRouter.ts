@@ -1,15 +1,18 @@
 import { Router } from "express";
 import {
+    saveCardsController,
+    updateCardController,
+    deleteCardController,
     getAllCardsController,
-    getCardsByIdController,
+    getCardsByIdController
 } from "../controllers/CardsController";
 
 const CardsRouter = Router();
 
 CardsRouter.get("/Cards", getAllCardsController);
 CardsRouter.get("/Cards/:id", getCardsByIdController);
-/*CardsRouter.route("/").post(CardsController.addCard);
-CardsRouter.route("/:id").get(CardsController.getCardById);
-CardsRouter.route("/:id").delete(CardsController.deleteCard); */
+CardsRouter.post("/Cards", saveCardsController);
+CardsRouter.delete('/Cards/:id', deleteCardController);
+CardsRouter.put('/cards/:id', updateCardController);
 
 export default CardsRouter

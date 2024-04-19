@@ -14,7 +14,7 @@ export const CardsModel = db.define(
       allowNull: false,
       validate: {
         notNull: {
-          msg: "El campo score no puede estar vacío",
+          msg: "El campo title no puede estar vacío",
         },
       },
     },
@@ -23,7 +23,7 @@ export const CardsModel = db.define(
       allowNull: false,
       validate: {
         notNull: {
-          msg: "El campo score no puede estar vacío",
+          msg: "El campo description no puede estar vacío",
         },
       },
     },
@@ -32,7 +32,7 @@ export const CardsModel = db.define(
       allowNull: false,
       validate: {
         notNull: {
-          msg: "El campo score no puede estar vacío",
+          msg: "El campo image no puede estar vacío",
         },
       },
     },

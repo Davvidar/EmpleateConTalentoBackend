@@ -17,6 +17,7 @@ app.use("/api/", userRouter);
 app.use("/api/", resultsCardsRouter);
 app.use("/api/", resultsCvRouter);
 app.use("/api/", resultsQuizRouter);
+app.use("/api/", CardsRouter);
 
 try {
   db.authenticate();
