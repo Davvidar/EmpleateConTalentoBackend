@@ -12,9 +12,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCardsByIdController = exports.getAllCardsController = void 0;
+exports.updateCardController = exports.deleteCardController = exports.getCardsByIdController = exports.getAllCardsController = exports.saveCardsController = void 0;
 const CardsModel_1 = __importDefault(require("../models/CardsModel"));
 const handleError_1 = require("../utils/handleError");
+const saveCardsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = req.body;
+        const newCard = Object.assign({}, data);
+        console.log(newCard);
+        const card = yield CardsModel_1.default.create(newCard);
+        const CardsData = {
+            id: card.get("id"),
+            title: card.get("title"),
+            description: card.get("description"),
+            image: card.get("image"),
+        };
+        return res.status(201).json({ CardsData });
+    }
+    catch (error) {
+        console.log(error);
+        return (0, handleError_1.handleHttpError)(res, "ERROR_SAVING_CARD");
+    }
+});
+exports.saveCardsController = saveCardsController;
 const getAllCardsController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const results = yield CardsModel_1.default.findAll();
@@ -54,3 +74,49 @@ const getCardsByIdController = (req, res) => __awaiter(void 0, void 0, void 0, f
     }
 });
 exports.getCardsByIdController = getCardsByIdController;
+const deleteCardController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const cardId = req.params.id;
+        const cardToDelete = yield CardsModel_1.default.findOne({
+            where: {
+                id: cardId,
+            },
+        });
+        if (!cardToDelete) {
+            return res.status(404).json({ message: "Card not found" });
+        }
+        yield cardToDelete.destroy();
+        return res.status(200).json({ message: "Card deleted successfully" });
+    }
+    catch (error) {
+        console.log(error);
+        return (0, handleError_1.handleHttpError)(res, "ERROR_DELETING_CARD");
+    }
+});
+exports.deleteCardController = deleteCardController;
+const updateCardController = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const cardId = req.params.id;
+        const { title, description, image } = req.body;
+        let cardToUpdate = yield CardsModel_1.default.findOne({
+            where: {
+                id: cardId,
+            },
+        });
+        4;
+        if (!cardToUpdate) {
+            return res.status(404).json({ message: "Card not found" });
+        }
+        cardToUpdate = yield cardToUpdate.update({
+            title,
+            description,
+            image,
+        });
+        return res.status(200).json({ card: cardToUpdate });
+    }
+    catch (error) {
+        console.log(error);
+        return (0, handleError_1.handleHttpError)(res, "ERROR_UPDATING_CARD");
+    }
+});
+exports.updateCardController = updateCardController;

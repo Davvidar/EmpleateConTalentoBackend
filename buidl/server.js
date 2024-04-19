@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const config_1 = require("./utils/config");
 const db_1 = __importDefault(require("./database/db"));
 const cors_1 = __importDefault(require("cors"));
+const CardsRouter_1 = __importDefault(require("./routes/CardsRouter"));
 const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const resultsCardsRouter_1 = __importDefault(require("./routes/resultsCardsRouter"));
 const resultsCvRouter_1 = __importDefault(require("./routes/resultsCvRouter"));
@@ -19,6 +20,7 @@ app.use("/api/", userRouter_1.default);
 app.use("/api/", resultsCardsRouter_1.default);
 app.use("/api/", resultsCvRouter_1.default);
 app.use("/api/", resultsQuizRouter_1.default);
+app.use("/api/", CardsRouter_1.default);
 try {
     db_1.default.authenticate();
     console.log("💫💫💫conected to database💫💫💫");

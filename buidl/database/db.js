@@ -9,5 +9,6 @@ const db = new sequelize_1.Sequelize(config_1.DB_DATABASE, config_1.DB_USER, con
     define: {
         timestamps: false,
     },
+    port: config_1.PORT,
 });
 exports.default = db;
