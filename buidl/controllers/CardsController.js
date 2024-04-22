@@ -57,10 +57,10 @@ const getCardsByIdController = (req, res) => __awaiter(void 0, void 0, void 0, f
         const cardId = req.params.id;
         const results = yield CardsModel_1.default.findAll({
             where: {
-                Id: cardId,
+                id: cardId,
             },
         });
-        if (!results) {
+        if (results.length === 0) {
             return res.status(404).json({ message: "Card not found" });
         }
         const cardsData = results.map((result) => ({

@@ -60,11 +60,11 @@ export const getCardsByIdController = async (
 
     const results: Model<Cards>[] = await CardsModel.findAll({
       where: {
-        Id: cardId,
+        id: cardId,
       },
     });
 
-    if (!results) {
+    if (results.length === 0) {
       return res.status(404).json({ message: "Card not found" });
     }
     const cardsData: Cards[] = results.map((result) => ({
