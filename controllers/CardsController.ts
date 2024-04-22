@@ -64,6 +64,9 @@ export const getCardsByIdController = async (
       },
     });
 
+    if (!results) {
+      return res.status(404).json({ message: "Card not found" });
+    }
     const cardsData: Cards[] = results.map((result) => ({
         id: result.get("id") as number,
         title: result.get("title") as string,
