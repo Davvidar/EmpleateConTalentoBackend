@@ -60,6 +60,9 @@ const getCardsByIdController = (req, res) => __awaiter(void 0, void 0, void 0, f
                 Id: cardId,
             },
         });
+        if (!results) {
+            return res.status(404).json({ message: "Card not found" });
+        }
         const cardsData = results.map((result) => ({
             id: result.get("id"),
             title: result.get("title"),
