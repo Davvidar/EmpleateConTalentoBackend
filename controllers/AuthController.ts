@@ -76,3 +76,22 @@ export const loginController = async (
     return handleHttpError(res, "ERROR_LOGIN_USER");
   }
 };
+
+export const getAllUsers = async (
+  _: Request,
+  res: Response
+): Promise<Response | void> => {
+  try {
+    const users: Model<UserAttributes>[] = await userModel.findAll();
+    const userData: UserData[] = users.map((user) => ({
+      id: user.get("id") as number,
+      name: user.get("name") as string,
+      email: user.get("email") as string,
+      role: user.get("role") as string,
+    }));
+    return res.status(200).json({ userData });
+  } catch (error) {
+    console.log(error);
+    return handleHttpError(res, "ERROR_GET_ALL_USERS");
+  }
+};
